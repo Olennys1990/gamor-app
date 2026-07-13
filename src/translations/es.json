@@ -1,0 +1,17 @@
+{
+  "appTitle": "Gamor - Plataforma de Streaming de Juegos",
+  "appSubtitle": "Bienvenido a la mejor plataforma de juegos.",
+  "darkMode": "Modo Oscuro",
+  "lightMode": "Modo Claro",
+  "languageToggle": "🇬🇧 English",
+  "home": "Inicio",
+  "signin": "Iniciar Sesión",
+  "createaccount": "Crear Cuenta",
+  "streams": "Streams",
+  "party": "Party",
+  "premium": "Premium",
+  "logo": "Gamor",
+  "mainboardPlaceholder": "MainBoard (Próximamente)",
+  "categoriesTitle": "Trending Categories",
+  "categoriesPlaceholder": "Categorías (Próximamente)"
+}

@@ -1,0 +1,89 @@
+/* --- Contenedor principal del Home --- */
+.home-page {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-height: 100%;
+  background-color: var(--bg-secondary);
+  padding: 0;
+  width: 100%;
+}
+
+/* --- MainBoard --- */
+.mainboard-section {
+  background-color: var(--bg-secondary);
+  border-radius: 0.5rem 0.5rem 0 0;
+  padding: 0;
+  min-height: 74vh;
+  flex: 0 0 auto;
+  display: flex;
+  gap: 0;
+  width: 100%;
+}
+
+.mainboard-area {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.5rem;
+  font-weight: bold;
+  border-radius: 0.3rem;
+  padding: 1vh 0.5vw;
+}
+
+.mainboard-area.left {
+  background-color: var(--bg-secondary);
+}
+
+.mainboard-area.center {
+    background-color: var(--bg-accent);
+}
+
+.mainboard-area.right {
+   background-color: var(--bg-secondary);
+}
+
+/* --- Título "Trending Categories" --- */
+.categories-title-wrapper {
+  background-color: var(--bg-primary);
+  padding: 6vh 2vw 1.5vh 2vw;
+  margin: 0;
+  text-align: left;
+  width: 100%;
+  border-radius: 0;
+}
+
+.categories-title {
+  color: var(--text-primary);
+  font-size: 1.3rem;
+  font-weight: 600;
+  margin: 0;
+}
+
+/* --- Grid de Categorías --- */
+.categories-section {
+  background-color: var(--bg-primary);    /* Amarillo para visualizar */
+  border-radius: 0 0 0.5rem 0.5rem;
+  margin-top: 0;           /* Separación con el título */
+  flex: 0 0 auto;
+  width: 100%;
+}
+
+.categories-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1rem;
+  background-color: transparent;
+  padding: 1rem;
+  border-radius: 0.3rem;
+}
+
+.category-item {
+  background-color: var(--bg-secondary);
+  padding: 1.5rem 1rem;
+  text-align: center;
+  border-radius: 0.3rem;
+  font-weight: bold;
+  color: #1a1a1a;
+}

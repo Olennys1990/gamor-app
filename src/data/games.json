@@ -1,0 +1,44 @@
+[
+  {
+    "id": 1,
+    "name": "The Last of Us",
+    "category": "Aventura",
+    "image": "https://via.placeholder.com/300x200",
+    "description": "Juego de aventura y supervivencia"
+  },
+  {
+    "id": 2,
+    "name": "FIFA 24",
+    "category": "Deportes",
+    "image": "https://via.placeholder.com/300x200",
+    "description": "Simulación de fútbol"
+  },
+  {
+    "id": 3,
+    "name": "Call of Duty",
+    "category": "FPS",
+    "image": "https://via.placeholder.com/300x200",
+    "description": "Juego de disparos en primera persona"
+  },
+  {
+    "id": 4,
+    "name": "Minecraft",
+    "category": "Aventura",
+    "image": "https://via.placeholder.com/300x200",
+    "description": "Juego de construcción y exploración"
+  },
+  {
+    "id": 5,
+    "name": "Fortnite",
+    "category": "Battle Royale",
+    "image": "https://via.placeholder.com/300x200",
+    "description": "Juego de batalla real"
+  },
+  {
+    "id": 6,
+    "name": "League of Legends",
+    "category": "MOBA",
+    "image": "https://via.placeholder.com/300x200",
+    "description": "Juego de estrategia multijugador"
+  }
+]
