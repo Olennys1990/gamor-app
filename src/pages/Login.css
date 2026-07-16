@@ -1,3 +1,99 @@
-.login-page {
-  padding: 1rem;
+.login-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  flex: 1;
+  background-color: var(--bg-primary);
+}
+
+.login-card {
+  width: 100%;
+  max-width: 400px;
+  padding: 4vh 3vw;
+  background-color: var(--bg-secondary);
+  border-radius: 0.5rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  border: 1px solid var(--border-color);
+}
+
+.login-title {
+  font-size: clamp(1.5rem, 2.5vw, 2.5rem);
+  font-weight: 700;
+  color: var(--text-primary);
+  text-align: center;
+  margin-bottom: 2vh;
+}
+
+.login-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5vh;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3vh;
+}
+
+.form-group label {
+  font-size: clamp(0.8rem, 0.9vw, 0.9rem);
+  font-weight: 500;
+  color: var(--text-secondary);
+}
+
+.login-input {
+  padding: 0.6vh 0.8vw;
+  border: 1px solid var(--border-color);
+  border-radius: 0.5rem;
+  background-color: var(--bg-secondary);
+  color: var(--text-primary);
+  font-size: clamp(0.8rem, 0.9vw, 0.9rem);
+  outline: none;
+  transition: border-color 0.3s ease;
+}
+
+.login-input:focus {
+  border-color: var(--bg-accent);
+}
+
+.login-error {
+  color: #ef4444;
+  font-size: clamp(0.7rem, 0.8vw, 0.8rem);
+  text-align: center;
+  margin: 0;
+}
+
+.login-button {
+  padding: 0.8vh 0;
+  border: none;
+  border-radius: 0.5rem;
+  background-color: var(--bg-accent);
+  color: #ffffff;
+  font-size: clamp(0.9rem, 1vw, 1rem);
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.login-button:hover {
+  background-color: var(--color-streaming);
+}
+
+.login-register {
+  font-size: clamp(0.8rem, 0.9vw, 0.9rem);
+  color: var(--text-secondary);
+  text-align: center;
+  margin-top: 1.5vh;
+}
+
+.login-register a {
+  color: var(--bg-accent);
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.login-register a:hover {
+  text-decoration: underline;
 }

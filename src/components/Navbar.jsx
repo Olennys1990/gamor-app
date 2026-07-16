@@ -1,31 +1,48 @@
-import { Link } from 'react-router-dom';
-import { useLanguage } from '../hooks/useLanguage';
+import { Link, useNavigate } from 'react-router-dom';
 import { ThemeToggle } from './ThemeToggle';
-import { LanguageToggle } from './LanguageToggle';
 import './Navbar.css';
 
 export const Navbar = () => {
-  const { t } = useLanguage();
+  const navigate = useNavigate();
+
+  const isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
+  const user = localStorage.getItem('user') || 'User';
+
+  const handleLogout = () => {
+    localStorage.removeItem('isLoggedIn');
+    localStorage.removeItem('user');
+    navigate('/');
+  };
 
   return (
     <nav className="navbar">
       <div className="navbar-content">
         <div className="navbar-links">
-          <Link to="/">{t('home')}</Link>
-          <Link to="/streams">{t('streams')}</Link>
-          <Link to="/party">{t('party')}</Link>
-          <Link to="/premium">{t('premium')}</Link>
+          <Link to="/">Home</Link>
+          <Link to="/stream">Streams</Link>
+          <Link to="/party">Party</Link>
+          <Link to="/premium">Premium</Link>
         </div>
 
         <div className="navbar-logo">
-          <Link to="/">{t('logo')}</Link>
+          <Link to="/">Gamor</Link>
         </div>
 
         <div className="navbar-controls">
-          <Link to="/signin">{t('signin')}</Link>
-          <Link to="/createaccount">{t('createaccount')}</Link>
+          {isLoggedIn ? (
+            <>
+              <span className="navbar-user">Welcome, {user}</span>
+              <button className="navbar-logout" onClick={handleLogout}>
+                Logout
+              </button>
+            </>
+          ) : (
+            <>
+              <Link to="/login">Sign in</Link>
+              <Link to="/register">Create account</Link>
+            </>
+          )}
           <ThemeToggle />
-          <LanguageToggle />
         </div>
       </div>
     </nav>

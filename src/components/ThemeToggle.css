@@ -8,20 +8,24 @@
 }
 
 .toggle-track {
-  width: 52px;
-  height: 28px;
+  width: 3.25vw;
+  min-width: 40px;
+  height: 1.6vh;
+  min-height: 24px;
   border-radius: 14px;
   background-color: var(--bg-toggle-track);
   display: flex;
   align-items: center;
-  padding: 3px;
+  padding: 0.2vh;
   transition: background-color 0.3s ease;
   position: relative;
 }
 
 .toggle-thumb {
-  width: 22px;
-  height: 22px;
+  width: 1.4vw;
+  min-width: 18px;
+  height: 1.4vw;
+  min-height: 18px;
   border-radius: 50%;
   background-color: var(--bg-secondary);
   display: flex;
@@ -29,11 +33,11 @@
   justify-content: center;
   transition: transform 0.3s ease, background-color 0.3s ease;
   box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
-  font-size: 14px;
+  font-size: clamp(0.6rem, 0.9vw, 1rem);
 }
 
 .toggle-track.dark .toggle-thumb {
-  transform: translateX(24px);
+  transform: translateX(calc(3.25vw - 1.4vw - 0.4vh));
 }
 
 .toggle-icon {

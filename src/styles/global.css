@@ -14,18 +14,15 @@ body {
   color: var(--text-primary);
   transition: background-color 0.3s, color 0.3s;
 }
-/* Ocultar scroll en navegadores WebKit (Chrome, Edge, Safari) */
 ::-webkit-scrollbar {
   width: 0px;
   background: transparent;
 }
 
-/* Ocultar scroll en Firefox */
 * {
   scrollbar-width: none;
 }
 
-/* Asegurar que el contenido se puede scrollear */
 body {
-  overflow-y: scroll;  /* ← Mantiene scroll pero sin barra visible */
+  overflow-y: scroll;
 }

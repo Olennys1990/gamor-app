@@ -2,18 +2,24 @@
   --bg-primary: #f0f0f0;
   --bg-secondary: #ffffff;
   --bg-toggle-track: #e5e7eb;
-  --bg-accent: #7c3aed;     /* Morado azulado para light */
+  --bg-accent: #8b5cf6;
+  --color-streaming: #f97316;  
+  --color-underline: #8b5cf6;  
   --text-primary: #1a1a1a;
   --text-secondary: #4a4a4a;
   --border-color: #e0e0e0;
+   --color-oval: #d97706;   
 }
 
 [data-theme="dark"] {
   --bg-primary: #0d0d0d;
   --bg-secondary: #1a1a1a;
   --bg-toggle-track: #4b5563;
-  --bg-accent: #ea580c;     /* Naranja para dark */
+  --bg-accent: #f97316; 
+  --color-streaming: #8b5cf6;  
+  --color-underline: #f97316; 
   --text-primary: #ffffff;
   --text-secondary: #b0b0b0;
   --border-color: #333333;
+  --color-oval: #d1d5db; 
 }

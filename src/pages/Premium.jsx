@@ -1,10 +1,10 @@
 import { PlaceholderPage } from '../components/PlaceholderPage';
 
-export const Register = () => {
+export const Premium = () => {
   return (
     <PlaceholderPage
-      title="Sign Up"
-      message="Registration page is under construction."
+      title="Coming Soon"
+      message="Premium page is under construction."
     />
   );
 };

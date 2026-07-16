@@ -1,8 +1,8 @@
 .navbar {
   background-color: var(--bg-primary);
-  padding: 1rem 2rem;
+  padding: 1vh 2vw;
   border-radius: 0.5rem 0.5rem 0 0;
-  margin-bottom: 3vh;         /* ← El margin también va aquí */
+  margin-bottom: 3vh;
 }
 
 .navbar-content {
@@ -13,20 +13,20 @@
 
 .navbar-links {
   display: flex;
-  gap: 1.5rem;
+  gap: 1.5vw;
 }
 
 .navbar-links a {
   color: var(--text-primary);
   text-decoration: none;
-  font-size: 1rem;
+  font-size: clamp(0.7rem, 1.2vw, 1rem);
 }
 
 .navbar-logo a {
   color: var(--text-primary);
   text-decoration: none;
   font-weight: bold;
-  font-size: 1.5rem;
+  font-size: clamp(1.1rem, 1.8vw, 1.6rem);
 }
 
 .navbar-controls {
@@ -38,5 +38,29 @@
 .navbar-controls a {
   color: var(--text-primary);
   text-decoration: none;
-  font-size: 1rem;
+  font-size: clamp(0.7rem, 1.2vw, 1rem);
+}
+
+.navbar-user {
+  color: var(--text-primary);
+  font-size: clamp(0.7rem, 0.9vw, 0.9rem);
+  font-weight: 500;
+  opacity: 0.8;
+}
+
+.navbar-logout {
+  background: transparent;
+  border: 1px solid var(--border-color);
+  border-radius: 2rem;
+  padding: 0.3vh 1vw;
+  color: var(--text-primary);
+  font-size: clamp(0.7rem, 0.9vw, 0.9rem);
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.navbar-logout:hover {
+  background-color: var(--bg-toggle-track);
+  color: var(--text-primary);
 }
