@@ -265,7 +265,6 @@ export const Home = () => {
                     className="search-input"
                   />
                 </div>
-                {/* --- ETIQUETAS DE JUEGOS (NUEVO) --- */}
                 <div className="game-tags">
                   {availableGames.map((game) => (
                     <span
@@ -285,7 +284,7 @@ export const Home = () => {
                 <div className="result-card">
                   <div className="result-header">
                     <span className="result-header-title">
-                      {searchTerm || 'Todos los juegos'}
+                      {searchTerm || 'All games'}
                     </span>
                   </div>
                   {filteredData.map((item, index) => {

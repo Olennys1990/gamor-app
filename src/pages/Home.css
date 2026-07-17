@@ -435,7 +435,6 @@
   background: transparent;
 }
 
-/* --- Tooltip personalizado para avatares del Área 2 --- */
 .panel-avatar::after {
   content: attr(data-tooltip);
   position: absolute;

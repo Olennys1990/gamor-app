@@ -20,6 +20,16 @@ export const Login = () => {
     navigate('/');
   };
 
+  const handleUserChange = (e) => {
+    setUser(e.target.value);
+    if (error) setError('');
+  };
+
+  const handlePasswordChange = (e) => {
+    setPassword(e.target.value);
+    if (error) setError('');
+  };
+
   return (
     <div className="login-container">
       <div className="login-card">
@@ -31,7 +41,7 @@ export const Login = () => {
               type="text"
               id="user"
               value={user}
-              onChange={(e) => setUser(e.target.value)}
+              onChange={handleUserChange}
               placeholder="Enter your username"
               className="login-input"
             />
@@ -42,7 +52,7 @@ export const Login = () => {
               type="password"
               id="password"
               value={password}
-              onChange={(e) => setPassword(e.target.value)}
+              onChange={handlePasswordChange}
               placeholder="Enter your password"
               className="login-input"
             />
