@@ -20,6 +20,31 @@
   color: var(--text-primary);
   text-decoration: none;
   font-size: clamp(0.7rem, 1.2vw, 1rem);
+  padding: 0.3vh 0.8vw;
+  border-radius: 0.5rem;
+  transition: color 0.3s ease;
+}
+
+.navbar-links a.active {
+  color: var(--bg-accent);
+  position: relative;
+  padding: 0.3vh 0.8vw;
+  border-radius: 0.5rem;
+}
+
+.navbar-links a.active::before {
+  content: '';
+  position: absolute;
+  top: -1vh;
+  left: -0.5vw;
+  width: calc(100% + 1vw);
+  height: calc(100% + 1.5vh);
+  border: 1.5px solid var(--bg-accent);
+  border-radius: 50%;
+  opacity: 0.35;
+  pointer-events: none;
+  z-index: 0;
+  transform: rotate(-6deg);
 }
 
 .navbar-logo a {
@@ -27,6 +52,19 @@
   text-decoration: none;
   font-weight: bold;
   font-size: clamp(1.1rem, 1.8vw, 1.6rem);
+}
+
+.logo-g {
+  background: linear-gradient(
+    135deg,
+    var(--bg-accent) 0%,
+    var(--text-primary) 100%
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  display: inline-block;
+  font-weight: 900;
 }
 
 .navbar-controls {
@@ -39,6 +77,21 @@
   color: var(--text-primary);
   text-decoration: none;
   font-size: clamp(0.7rem, 1.2vw, 1rem);
+}
+
+.btn-create-account {
+  background-color: var(--bg-secondary);
+  border: 1px solid var(--bg-accent);
+  border-radius: 2rem;
+  padding: 0.8vh 1.2vw; 
+  font-size: clamp(0.8rem, 1.1vw, 1rem);
+  font-weight: 600;
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.btn-create-account:hover {
+  background-color: var(--bg-toggle-track);
+  box-shadow: 0 2px 8px var(--text-primary);
 }
 
 .navbar-user {

@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { ThemeContext } from './ThemeContext';
 
 const getInitialTheme = () => {
-  return localStorage.getItem('theme') || 'light';
+  return localStorage.getItem('theme') || 'dark';
 };
 
 export const ThemeProvider = ({ children }) => {

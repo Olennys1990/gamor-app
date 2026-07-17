@@ -1,6 +1,5 @@
 /* --- Responsive: tablet (768px - 1024px) --- */
 @media (min-width: 768px) and (max-width: 1024px) {
-  /* --- MainBoard: 2 columns --- */
   .mainboard-section {
     flex-wrap: wrap;
     height: auto;
@@ -27,7 +26,6 @@
     min-height: 30vh;
   }
 
-  /* --- Hero --- */
   .hero-title {
     font-size: clamp(1.8rem, 3vw, 2.8rem);
   }
@@ -36,7 +34,6 @@
     padding: 3vh 3vw;
   }
 
-  /* --- Center Panel --- */
   .panel-title {
     font-size: clamp(1.5rem, 2.5vw, 2.5rem);
   }
@@ -45,7 +42,6 @@
     font-size: clamp(1.5rem, 2.5vw, 2.5rem);
   }
 
-  /* --- Categories --- */
   .categories-grid {
     grid-template-columns: repeat(3, 1fr);
     gap: 1.5vw;
@@ -54,7 +50,6 @@
 
 /* --- Responsive: mobile (max-width: 768px)---*/
 @media (max-width: 768px) {
-  /* --- Navbar --- */
   .navbar-content {
     flex-wrap: wrap;
     gap: 0.5rem;
@@ -62,14 +57,17 @@
   }
 
   .navbar-links {
-    order: 2;
+    order: 1;
     gap: 0.8rem;
     flex-wrap: wrap;
     justify-content: center;
+    width: 100%;
   }
 
   .navbar-logo {
-    order: 1;
+    order: 2;
+    width: 100%;
+    text-align: center;
   }
 
   .navbar-controls {
@@ -77,6 +75,7 @@
     gap: 0.5rem;
     flex-wrap: wrap;
     justify-content: center;
+    width: 100%;
   }
 
   .navbar-links a,
@@ -88,7 +87,6 @@
     font-size: clamp(1rem, 1.5vw, 1.2rem);
   }
 
-  /* --- MainBoard: 1 column --- */
   .mainboard-section {
     flex-direction: column;
     height: auto;
@@ -115,7 +113,6 @@
     min-height: 40vh;
   }
 
-  /* --- Hero --- */
   .hero-content {
     padding: 2vh 3vw;
   }
@@ -144,7 +141,6 @@
     font-size: clamp(0.7rem, 1vw, 0.9rem);
   }
 
-  /* --- Center Panel --- */
   .panel-center {
     padding: 1vh 1vw;
   }
@@ -178,7 +174,6 @@
     padding: 0.2vh 1.5vw;
   }
 
-  /* --- Search Panel  --- */
   .search-panel {
     padding: 2vh 2vw 1vh 2vw;
     gap: 1vh;
@@ -231,7 +226,6 @@
     font-size: clamp(0.8rem, 1vw, 1rem);
   }
 
-  /* --- Categories --- */
   .categories-grid {
     grid-template-columns: repeat(2, 1fr);
     gap: 1vw;
@@ -262,7 +256,6 @@
     font-size: clamp(0.9rem, 1.5vw, 1.2rem);
   }
 
-  /* --- Login --- */
   .login-card {
     padding: 3vh 4vw;
     max-width: 90%;

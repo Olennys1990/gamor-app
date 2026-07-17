@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
+import { useAuth } from '../hooks/useAuth';
 import './Login.css';
 
 export const Login = () => {
@@ -7,6 +8,7 @@ export const Login = () => {
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const navigate = useNavigate();
+  const { login } = useAuth();
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -14,8 +16,7 @@ export const Login = () => {
       setError('Please fill in all fields');
       return;
     }
-    localStorage.setItem('isLoggedIn', 'true');
-    localStorage.setItem('user', user);
+    login(user);
     navigate('/');
   };
 

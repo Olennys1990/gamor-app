@@ -70,7 +70,7 @@
   border: none;
   border-radius: 0.5rem;
   background-color: var(--bg-accent);
-  color: #ffffff;
+  color: var(--text-primary);
   font-size: clamp(0.9rem, 1vw, 1rem);
   font-weight: 600;
   cursor: pointer;

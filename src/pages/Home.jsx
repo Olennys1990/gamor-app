@@ -1,7 +1,9 @@
-import { useState } from 'react';
+import { useState, useMemo } from 'react';
+import { Link } from 'react-router-dom';
+import { useAuth } from '../hooks/useAuth';
 import './Home.css';
-import { partyData, matchesData, streamsData, defaultFeatured } from '../data/games';
-import { categories } from '../data/categories'; 
+import { partyData, matchesData, streamsData, defaultFeatured, availableGames} from '../data/games';
+import { categories } from '../data/categories';
 
 // Game images for the featured panel
 import codWarzone from '../assets/COD-Warzone.jpg';
@@ -11,11 +13,12 @@ import leagueOfLegends from '../assets/League-of-Legends.jpg';
 import valorant from '../assets/Valorant.jpg';
 
 export const Home = () => {
+  const { isLoggedIn, user: loggedUser, logout } = useAuth();
+
   const [filterType, setFilterType] = useState('party');
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedItem, setSelectedItem] = useState(defaultFeatured);
 
-  // Maps game names to their respective images
   const getGameImage = (game) => {
     const images = {
       'COD Warzone': codWarzone,
@@ -27,7 +30,6 @@ export const Home = () => {
     return images[game] || fortnite;
   };
 
-  // Returns the data array based on the selected filter
   const getDataByFilter = () => {
     switch (filterType) {
       case 'party':
@@ -41,7 +43,6 @@ export const Home = () => {
     }
   };
 
-  // Dynamic placeholder for the search input
   const getInputPlaceholder = () => {
     switch (filterType) {
       case 'party':
@@ -55,39 +56,74 @@ export const Home = () => {
     }
   };
 
-  // Dynamic placeholder for the empty result card
-  const getCardPlaceholder = () => {
-    switch (filterType) {
-      case 'party':
-        return 'Search for a game to find parties...';
-      case 'matches':
-        return 'Search for a game to find matches...';
-      case 'streams':
-        return 'Search for a game to find streams...';
-      default:
-        return 'Search for a game...';
-    }
-  };
-
-  // Filter data based on search term (case-insensitive)
   const filteredData = getDataByFilter().filter((item) =>
     item.game.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
-  // Add selected item to the central panel (replaces previous selection)
-  const handleAddToPanel = (item) => {
+  const currentItem = useMemo(() => {
+    if (filteredData.length === 0) {
+      return defaultFeatured;
+    }
+    const exists = filteredData.some(item => item.id === selectedItem.id);
+    return exists ? selectedItem : filteredData[0];
+  }, [filteredData, selectedItem]);
+
+  const handleSelectItem = (item) => {
     setSelectedItem(item);
   };
 
-  // Extract participants info based on item type
-  const getParticipants = (item) => {
+  const handleAddToPanel = (item) => {
+    if (!isLoggedIn) return;
+
+    let updatedItem = { ...item };
+
     if (item.members) {
+      const alreadyMember = item.members.some(
+        (member) => member.name === loggedUser
+      );
+      if (!alreadyMember) {
+        updatedItem.members = [
+          ...item.members,
+          { name: loggedUser, color: '#22c55e' },
+        ];
+      }
+    }
+
+    if (!item.members && (item.players || item.viewers)) {
+      if (!updatedItem.participants) {
+        updatedItem.participants = [];
+      }
+      const alreadyParticipant = updatedItem.participants.some(
+        (p) => p.name === loggedUser
+      );
+      if (!alreadyParticipant) {
+        updatedItem.participants.push({ name: loggedUser, color: '#22c55e' });
+      }
+    }
+
+    setSelectedItem(updatedItem);
+  };
+
+  const getParticipants = (item) => {
+    if (item.members && item.members.length > 0) {
       return { type: 'members', data: item.members };
-    } else if (item.players) {
+    }
+
+    if (item.participants && item.participants.length > 0) {
+      return {
+        type: 'membersWithCounter',
+        data: item.participants,
+        counter: item.players ? `${item.players} players` : `${item.viewers} watching`,
+      };
+    }
+
+    if (item.players) {
       return { type: 'players', data: `${item.players} players` };
-    } else if (item.viewers) {
+    }
+    if (item.viewers) {
       return { type: 'viewers', data: `${item.viewers} watching` };
     }
+
     return { type: 'none', data: null };
   };
 
@@ -116,8 +152,19 @@ export const Home = () => {
               gamor now has <span className="highlight-sub">stream party </span> platform
             </p>
             <div className="hero-actions">
-              <button className="btn-create">Create account</button>
-              <span className="btn-signin">Sign in</span>
+              {isLoggedIn ? (
+                <>
+                  <span className="hero-user">Welcome, {loggedUser}</span>
+                  <button className="hero-logout" onClick={logout}>
+                    Logout
+                  </button>
+                </>
+              ) : (
+                <>
+                  <Link to="/login" className="btn-signin">Sign in</Link>
+                  <Link to="/register" className="btn-create">Create account</Link>
+                </>
+              )}
             </div>
           </div>
         </div>
@@ -125,48 +172,66 @@ export const Home = () => {
         {/* CENTER: Featured Content Panel */}
         <div className="mainboard-area center">
           <div className="panel-center">
-            {selectedItem ? (
-              <div className="panel-card">
-                <div className="panel-header">
-                  <h2 className="panel-title">{selectedItem.game || selectedItem.name}</h2>
-                  <p className="panel-subtitle">
-                    {selectedItem.id === 0 ? 'Join Live Stream' : selectedItem.name}
-                  </p>
-                  <div className="panel-timer">{selectedItem.timer || '00 : 00'}</div>
-                </div>
-                <div className="panel-image-wrapper">
-                  <img
-                    key={selectedItem.id}
-                    src={getGameImage(selectedItem.game)}
-                    alt={selectedItem.game}
-                    className="panel-background-image"
-                    style={{ opacity: 0, transition: 'opacity 0.4s ease' }}
-                    onLoad={(e) => {
-                      e.target.style.opacity = '1';
-                    }}
-                  />
-                  <div className="panel-overlay">
-                    <div className="panel-participants">
-                      {(() => {
-                        const participants = getParticipants(selectedItem);
-                        if (participants.type === 'members') {
-                          return participants.data.map((member, idx) => (
-                            <div key={idx} className="panel-avatar">{member.charAt(0)}</div>
-                          ));
-                        } else if (participants.type === 'players' || participants.type === 'viewers') {
-                          return <span className="panel-counter">{participants.data}</span>;
-                        }
-                        return null;
-                      })()}
-                    </div>
+            <div className="panel-card">
+              <div className="panel-header">
+                <h2 className="panel-title">{currentItem.game || currentItem.name}</h2>
+                <p className="panel-subtitle">{currentItem.id === 0 ? 'Featured' : currentItem.name}</p>
+                <div className="panel-timer">{currentItem.timer || '00 : 00'}</div>
+              </div>
+
+              <div className="panel-image-wrapper">
+                <img
+                  key={currentItem.id}
+                  src={getGameImage(currentItem.game)}
+                  alt={currentItem.game}
+                  className="panel-background-image"
+                  style={{ opacity: 0, transition: 'opacity 0.4s ease' }}
+                  onLoad={(e) => {
+                    e.target.style.opacity = '1';
+                  }}
+                />
+                <div className="panel-overlay">
+                  <div className="panel-participants">
+                    {(() => {
+                      const participants = getParticipants(currentItem);
+                      if (participants.type === 'members' || participants.type === 'membersWithCounter') {
+                        const memberList = participants.data;
+                        return (
+                          <>
+                            {participants.counter && (
+                              <span className="panel-counter">
+                                {participants.counter}
+                                {isLoggedIn && loggedUser && <span className="panel-plus"> + </span>}
+                              </span>
+                            )}
+                            {memberList.map((member, idx) => {
+                              const isCurrentUser = isLoggedIn && member.name === loggedUser;
+                              return (
+                                <div
+                                  key={idx}
+                                  className={`panel-avatar ${isCurrentUser ? 'current-user' : ''}`}
+                                  data-tooltip={isCurrentUser ? loggedUser : member.name}
+                                  style={{ backgroundColor: member.color }}
+                                >
+                                  <span className="avatar-icon">👤</span>
+                                  <span className="avatar-initial">
+                                    {member.name.charAt(0).toUpperCase()}
+                                  </span>
+                                  {isCurrentUser && <span className="current-user-badge">You</span>}
+                                </div>
+                              );
+                            })}
+                          </>
+                        );
+                      } else if (participants.type === 'players' || participants.type === 'viewers') {
+                        return <span className="panel-counter">{participants.data}</span>;
+                      }
+                      return null;
+                    })()}
                   </div>
                 </div>
               </div>
-            ) : (
-              <div className="panel-placeholder">
-                <p>Select a game from the search panel</p>
-              </div>
-            )}
+            </div>
           </div>
         </div>
 
@@ -200,51 +265,78 @@ export const Home = () => {
                     className="search-input"
                   />
                 </div>
+                {/* --- ETIQUETAS DE JUEGOS (NUEVO) --- */}
+                <div className="game-tags">
+                  {availableGames.map((game) => (
+                    <span
+                      key={game}
+                      className={`game-tag ${searchTerm.toLowerCase() === game.toLowerCase() ? 'active' : ''}`}
+                      onClick={() => setSearchTerm(game)}
+                    >
+                      {game}
+                    </span>
+                  ))}
+                </div>
               </div>
             </div>
 
-            {/* Search Results */}
             <div className="search-results-wrapper">
-              {searchTerm.length > 0 ? (
-                filteredData.length > 0 ? (
-                  <div className="result-card">
-                    <div className="result-header">
-                      <span className="result-header-title">{searchTerm}</span>
-                      <button
-                        className="sort-button"
-                        onClick={() => console.log('Sort results')}
-                        aria-label="Sort results"
-                      >
-                        <span className="sort-icon">↕</span>
-                      </button>
-                    </div>
-                    {filteredData.map((item) => (
-                      <div key={item.id} className="result-row">
-                        <div className="result-info">
-                          <span className="result-name">{item.name}</span>
-                        </div>
-                        <div className="result-avatars">
-                          {item.members?.map((_, idx) => (
-                            <div key={idx} className="avatar-circle">👤</div>
-                          ))}
-                        </div>
-                        <button
-                          className="add-button"
-                          onClick={() => handleAddToPanel(item)}
-                          aria-label={`Add ${item.name} to panel`}
-                        >
-                          +
-                        </button>
-                      </div>
-                    ))}
+              {filteredData.length > 0 ? (
+                <div className="result-card">
+                  <div className="result-header">
+                    <span className="result-header-title">
+                      {searchTerm || 'Todos los juegos'}
+                    </span>
                   </div>
-                ) : (
-                  <p className="no-results">No results found for "{searchTerm}"</p>
-                )
-              ) : (
-                <div className="search-placeholder">
-                  <p>{getCardPlaceholder()}</p>
+                  {filteredData.map((item, index) => {
+                    const isActive = currentItem && currentItem.id === item.id;
+                    return (
+                      <div
+                        key={item.id}
+                        className={`result-row ${isActive ? 'active' : ''}`}
+                        onClick={() => handleSelectItem(item)}
+                      >
+                        <div className="result-row-content">
+                          <div className="result-info">
+                            <span className="result-number">{index + 1}.</span>
+                            <span className="result-name">{item.name}</span>
+                            <span className="result-game">• {item.game}</span>
+                          </div>
+                          <div className="result-avatars">
+                            {item.members?.map((member, idx) => (
+                              <div
+                                key={idx}
+                                className="avatar-circle"
+                                style={{ backgroundColor: member.color }}
+                                title={member.name}
+                              >
+                                <span className="avatar-icon">👤</span>
+                                <span className="avatar-initial">
+                                  {member.name.charAt(0).toUpperCase()}
+                                </span>
+                              </div>
+                            ))}
+                          </div>
+                          <button
+                            className={`add-button ${!isLoggedIn ? 'disabled' : ''}`}
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              isLoggedIn && handleAddToPanel(item);
+                            }}
+                            disabled={!isLoggedIn}
+                            title={!isLoggedIn ? 'Please login to join' : ''}
+                          >
+                            {isLoggedIn ? '+' : '🔒'}
+                          </button>
+                        </div>
+                      </div>
+                    );
+                  })}
                 </div>
+              ) : (
+                <p className="no-results">
+                  {searchTerm ? `No results found for "${searchTerm}"` : 'No hay resultados disponibles'}
+                </p>
               )}
             </div>
           </div>
@@ -260,9 +352,13 @@ export const Home = () => {
         <div className="categories-grid">
           {categories.map((cat) => (
             <div key={cat.id} className="category-item">
-              <span className="category-number">/{String(cat.id).padStart(2, '0')}</span>
+              <span className="category-number">
+                /{String(cat.id).padStart(2, '0')}
+              </span>
               <span className="category-name">{cat.name}</span>
-              {cat.subtitle && <span className="category-subtitle">{cat.subtitle}</span>}
+              {cat.subtitle && (
+                <span className="category-subtitle">{cat.subtitle}</span>
+              )}
             </div>
           ))}
         </div>
