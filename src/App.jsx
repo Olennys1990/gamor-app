@@ -10,7 +10,7 @@ import { PlaceholderPage } from './components/PlaceholderPage';
 
 function App() {
   return (
-    <BrowserRouter>
+    <BrowserRouter basename="/gamor-app">
       <Routes>
         <Route path="/" element={<Layout />}>
           <Route index element={<Home />} />
