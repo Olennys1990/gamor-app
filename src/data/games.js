@@ -1,60 +1,69 @@
+import avatar1 from '../assets/avatars/Avatar1.jpg';
+import avatar2 from '../assets/avatars/Avatar2.jpg';
+import avatar3 from '../assets/avatars/Avatar3.jpg';
+import avatar4 from '../assets/avatars/Avatar4.jpg';
+import avatar5 from '../assets/avatars/Avatar5.jpg';
+import avatar6 from '../assets/avatars/Avatar6.jpg';
+import avatar7 from '../assets/avatars/Avatar7.jpg';
+import avatar8 from '../assets/avatars/Avatar8.jpg';
+import avatar9 from '../assets/avatars/Avatar9.jpg';
+import avatar10 from '../assets/avatars/Avatar10.jpg';
+import avatar11 from '../assets/avatars/Avatar11.jpg';
+
 export const availableGames = ['COD Warzone', 'Fortnite', 'GTA V', 'League of Legends', 'Valorant'];
 const members = {
-  dr: { name: 'Dr', color: '#8b5cf6' },
-  mia: { name: 'Mia', color: '#f97316' },
-  juan: { name: 'Juan', color: '#22c55e' },
-  nick: { name: 'Nick', color: '#3b82f6' },
-  sofia: { name: 'Sofia', color: '#ef4444' },
-  mark: { name: 'Mark', color: '#eab308' },
-  leo: { name: 'Leo', color: '#ec4899' },
-  keoxer: { name: 'Keoxer', color: '#14b8a6' },
-  ana: { name: 'Ana', color: '#8b5cf6' },
-  luis: { name: 'Luis', color: '#f97316' },
-  alex: { name: 'Alex', color: '#22c55e' },
-  carlos: { name: 'Carlos', color: '#3b82f6' },
-  rush: { name: 'Rush', color: '#ef4444' },
-  blaze: { name: 'Blaze', color: '#eab308' },
-  sky: { name: 'Sky', color: '#ec4899' },
-  warrior: { name: 'Warrior', color: '#14b8a6' },
-  shadow: { name: 'Shadow', color: '#8b5cf6' },
-  storm: { name: 'Storm', color: '#f97316' },
-  mid: { name: 'Mid', color: '#22c55e' },
-  top: { name: 'Top', color: '#3b82f6' },
-  ace: { name: 'Ace', color: '#f43f5e' },
-  phoenix: { name: 'Phoenix', color: '#f59e0b' },
-  red: { name: 'Red', color: '#ef4444' },
-  blue: { name: 'Blue', color: '#3b82f6' },
-  jungle: { name: 'Jungle', color: '#10b981' },
-  support: { name: 'Support', color: '#8b5cf6' },
-  adc: { name: 'ADC', color: '#f97316' },
-  raze: { name: 'Raze', color: '#ec4899' },
-  breach: { name: 'Breach', color: '#14b8a6' },
-  sage: { name: 'Sage', color: '#8b5cf6' },
-  steve: { name: 'Steve', color: '#f97316' },
-  herobrine: { name: 'Herobrine', color: '#ef4444' },
-  enderman: { name: 'Enderman', color: '#8b5cf6' },
+  dr: { name: 'Dr', avatar: avatar1},
+  mia: { name: 'Mia', avatar: avatar3 },
+  juan: { name: 'Juan', avatar: avatar2 },
+  nick: { name: 'Nick', avatar: avatar1 },
+  sofia: { name: 'Sofia', avatar: avatar4 },
+  mark: { name: 'Mark', avatar: avatar5 },
+  leo: { name: 'Leo', avatar: avatar6 },
+  keoxer: { name: 'Keoxer', avatar: avatar7 },
+  ana: { name: 'Ana', avatar: avatar8 },
+  luis: { name: 'Luis', avatar: avatar9 },
+  alex: { name: 'Alex', avatar: avatar10 },
+  carlos: { name: 'Carlos', avatar: avatar11 },
+  rush: { name: 'Rush', avatar: avatar1 },
+  blaze: { name: 'Blaze', avatar: avatar2 },
+  sky: { name: 'Sky', avatar: avatar3 },
+  warrior: { name: 'Warrior', avatar: avatar4 },
+  shadow: { name: 'Shadow', avatar: avatar5 },
+  storm: { name: 'Storm', avatar: avatar6 },
+  mid: { name: 'Mid', avatar: avatar7 },
+  top: { name: 'Top', avatar: avatar8 },
+  ace: { name: 'Ace', avatar: avatar9 },
+  phoenix: { name: 'Phoenix', avatar: avatar10 },
+  red: { name: 'Red', avatar: avatar11 },
+  blue: { name: 'Blue', avatar: avatar9 },
+  jungle: { name: 'Jungle', avatar: avatar1 },
+  support: { name: 'Support', avatar: avatar2 },
+  adc: { name: 'ADC', avatar: avatar3 },
+  raze: { name: 'Raze', avatar: avatar4 },
+  breach: { name: 'Breach', avatar: avatar5 },
+  sage: { name: 'Sage', avatar: avatar6},
+  steve: { name: 'Steve', avatar: avatar7 },
+  herobrine: { name: 'Herobrine', avatar: avatar8 },
+  enderman: { name: 'Enderman', avatar: avatar9 },
 };
 
 export const partyData = [
   { id: 1, name: 'Dr Team', members: [members.dr, members.mia], game: 'COD Warzone' },
   { id: 2, name: 'Mia Plays', members: [members.mia, members.juan], game: 'COD Warzone' },
   { id: 3, name: 'Nickmercs Team', members: [members.nick, members.sofia], game: 'COD Warzone' },
-  { id: 4, name: 'Valorant Squad', members: [members.ace, members.phoenix], game: 'Valorant' },
-  { id: 5, name: 'Impostors', members: [members.red, members.blue], game: 'Valorant' },
-  { id: 6, name: 'Keoxer Squad', members: [members.keoxer, members.ana, members.luis], game: 'COD Warzone' },
-  { id: 7, name: 'Team Rush', members: [members.rush, members.blaze, members.sky], game: 'Fortnite' },
-  { id: 8, name: 'Los Guerreros', members: [members.warrior, members.shadow, members.storm], game: 'Fortnite' },
+  { id: 4, name: 'Keoxer Squad', members: [members.keoxer, members.ana, members.luis], game: 'COD Warzone' },
+  { id: 5, name: 'Los Constructores', members: [members.alex, members.mia, members.carlos, members.sky, members.warrior], game: 'Fortnite' },
+  { id: 6, name: 'Team Rush', members: [members.rush, members.blaze, members.sky], game: 'Fortnite' },
+  { id: 7, name: 'Los Guerreros', members: [members.warrior, members.shadow, members.storm], game: 'Fortnite' },  
+  { id: 8, name: 'Block Builders', members: [members.steve, members.alex, members.herobrine, members.enderman, members.phoenix, members.breach], game: 'Fortnite' },
   { id: 9, name: 'Team Mid', members: [members.mid, members.jungle, members.top], game: 'League of Legends' },
-  { id: 10, name: 'Los Constructores', members: [members.alex, members.mia, members.carlos, members.sky], game: 'Fortnite' },
-  { id: 11, name: 'Los Top Laners', members: [members.top, members.support, members.adc, members.mid], game: 'League of Legends' },
-  { id: 12, name: 'Team Radiant', members: [members.raze, members.breach, members.sage, members.phoenix], game: 'Valorant' },
-  { id: 13, name: 'Block Builders', members: [members.steve, members.alex, members.herobrine, members.enderman], game: 'Fortnite' },
+  { id: 10, name: 'Los Top Laners', members: [members.top, members.support, members.adc, members.mid], game: 'League of Legends' },
+  { id: 11, name: 'Valorant Squad', members: [members.ace, members.phoenix], game: 'Valorant' },  
+  { id: 12, name: 'Impostors', members: [members.red, members.blue], game: 'Valorant' },    
+  { id: 13, name: 'Team Radiant', members: [members.raze, members.breach, members.sage, members.phoenix], game: 'Valorant' },
 ];
 
 export const matchesData = [
-  { id: 100, name: 'COD Warzone Match 1', players: 12, game: 'COD Warzone' },
-  { id: 101, name: 'COD Warzone Match 2', players: 8, game: 'COD Warzone' },
-  { id: 102, name: 'COD Warzone Match 3', players: 15, game: 'COD Warzone' },
   { id: 103, name: 'Fortnite Battle Royale', players: 45, game: 'Fortnite' },
   { id: 104, name: 'Fortnite Arena', players: 30, game: 'Fortnite' },
   { id: 105, name: 'League of Legends Ranked', players: 10, game: 'League of Legends' },
@@ -62,6 +71,9 @@ export const matchesData = [
   { id: 107, name: 'GTA V Online', players: 20, game: 'GTA V' },
   { id: 108, name: 'Fortnite Survival', players: 15, game: 'Fortnite' },
   { id: 109, name: 'Among Us Game', players: 8, game: 'Valorant' },
+  { id: 110, name: 'COD Warzone Match 1', players: 12, game: 'COD Warzone' },
+  { id: 111, name: 'COD Warzone Match 2', players: 8, game: 'COD Warzone' },
+  { id: 112, name: 'COD Warzone Match 3', players: 15, game: 'COD Warzone' },
 ];
 
 export const streamsData = [

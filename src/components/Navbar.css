@@ -3,6 +3,9 @@
   padding: 1vh 2vw;
   border-radius: 0.5rem 0.5rem 0 0;
   margin-bottom: 3vh;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
 }
 
 .navbar-content {
@@ -22,7 +25,12 @@
   font-size: clamp(0.7rem, 1.2vw, 1rem);
   padding: 0.3vh 0.8vw;
   border-radius: 0.5rem;
-  transition: color 0.3s ease;
+  transition: color 0.3s ease, background-color 0.3s ease;
+}
+.navbar-links a:hover {
+  color: var(--bg-accent);     
+  background-color: var(--bg-toggle-track);
+  transform: scale(1.05);          
 }
 
 .navbar-links a.active {

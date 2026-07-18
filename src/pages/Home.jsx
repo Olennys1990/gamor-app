@@ -4,15 +4,17 @@ import { useAuth } from '../hooks/useAuth';
 import './Home.css';
 import { partyData, matchesData, streamsData, defaultFeatured, availableGames} from '../data/games';
 import { categories } from '../data/categories';
+import avatarLog from '../assets/avatars/AvatarLog.jpg'; 
 
 // Game images for the featured panel
-import codWarzone from '../assets/COD-Warzone.jpg';
-import fortnite from '../assets/Fortnite.jpg';
-import gtaV from '../assets/GTA-V.jpg';
-import leagueOfLegends from '../assets/League-of-Legends.jpg';
-import valorant from '../assets/Valorant.jpg';
+import codWarzone from '../assets/games/COD-Warzone.jpg';
+import fortnite from '../assets/games/Fortnite.jpg';
+import gtaV from '../assets/games/GTA-V.jpg';
+import leagueOfLegends from '../assets/games/League-of-Legends.jpg';
+import valorant from '../assets/games/Valorant.jpg';
 
 export const Home = () => {
+  const userAvatar = avatarLog;
   const { isLoggedIn, user: loggedUser, logout } = useAuth();
 
   const [filterType, setFilterType] = useState('party');
@@ -71,6 +73,11 @@ export const Home = () => {
   const handleSelectItem = (item) => {
     setSelectedItem(item);
   };
+  const handleClearFilter = () => {
+  setSearchTerm('');    
+  setFilterType('party'); 
+  setSelectedItem(defaultFeatured);
+};
 
   const handleAddToPanel = (item) => {
     if (!isLoggedIn) return;
@@ -84,7 +91,7 @@ export const Home = () => {
       if (!alreadyMember) {
         updatedItem.members = [
           ...item.members,
-          { name: loggedUser, color: '#22c55e' },
+          { name: loggedUser, avatar: userAvatar },
         ];
       }
     }
@@ -97,7 +104,7 @@ export const Home = () => {
         (p) => p.name === loggedUser
       );
       if (!alreadyParticipant) {
-        updatedItem.participants.push({ name: loggedUser, color: '#22c55e' });
+        updatedItem.participants.push({ name: loggedUser, avatar: userAvatar});
       }
     }
 
@@ -211,12 +218,12 @@ export const Home = () => {
                                   key={idx}
                                   className={`panel-avatar ${isCurrentUser ? 'current-user' : ''}`}
                                   data-tooltip={isCurrentUser ? loggedUser : member.name}
-                                  style={{ backgroundColor: member.color }}
                                 >
-                                  <span className="avatar-icon">👤</span>
-                                  <span className="avatar-initial">
-                                    {member.name.charAt(0).toUpperCase()}
-                                  </span>
+                                 <img 
+                                    src={member.avatar} 
+                                    alt={member.name} 
+                                    className="avatar-image" 
+                                  />
                                   {isCurrentUser && <span className="current-user-badge">You</span>}
                                 </div>
                               );
@@ -264,6 +271,29 @@ export const Home = () => {
                     onChange={(e) => setSearchTerm(e.target.value)}
                     className="search-input"
                   />
+                  {searchTerm && (
+                   <button 
+                      className="btn-clear-filter" 
+                      onClick={handleClearFilter}
+                      title="Clear search"
+                      aria-label="Clear search filter"
+                    >
+                    <svg 
+                        width="18" 
+                        height="18" 
+                        viewBox="0 0 24 24" 
+                        fill="none" 
+                        stroke="currentColor" 
+                        strokeWidth="2" 
+                        strokeLinecap="round" 
+                        strokeLinejoin="round"
+                      >
+                        <circle cx="12" cy="12" r="10" />
+                        <line x1="15" y1="9" x2="9" y2="15" />
+                        <line x1="9" y1="9" x2="15" y2="15" />
+                      </svg>
+                    </button>
+                  )}
                 </div>
                 <div className="game-tags">
                   {availableGames.map((game) => (
@@ -297,24 +327,23 @@ export const Home = () => {
                       >
                         <div className="result-row-content">
                           <div className="result-info">
-                            <span className="result-number">{index + 1}.</span>
-                            <span className="result-name">{item.name}</span>
+                            <div className="result-info-top">
+                              <span className="result-number">{index + 1}.</span>
+                              <span className="result-name">{item.name}</span>
+                            </div>
                             <span className="result-game">• {item.game}</span>
                           </div>
                           <div className="result-avatars">
-                            {item.members?.map((member, idx) => (
-                              <div
-                                key={idx}
-                                className="avatar-circle"
-                                style={{ backgroundColor: member.color }}
-                                title={member.name}
-                              >
-                                <span className="avatar-icon">👤</span>
-                                <span className="avatar-initial">
-                                  {member.name.charAt(0).toUpperCase()}
-                                </span>
+                            {item.members?.slice(0, 3).map((member, idx) => (
+                              <div key={idx} className="avatar-circle" title={member.name}>
+                                <img src={member.avatar} alt={member.name} className="avatar-image" />
                               </div>
                             ))}
+                            {item.members?.length > 3 && (
+                              <div className="avatar-circle avatar-more" title={`+${item.members.length - 3} more`}>
+                                <span className="avatar-more-text">+{item.members.length - 3}</span>
+                              </div>
+                            )}
                           </div>
                           <button
                             className={`add-button ${!isLoggedIn ? 'disabled' : ''}`}
