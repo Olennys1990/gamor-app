@@ -7,10 +7,10 @@ import { Premium } from './pages/Premium';
 import { Stream } from './pages/Stream';
 import { Party } from './pages/Party';
 import { PlaceholderPage } from './components/PlaceholderPage';
-
+const basename = import.meta.env.MODE === 'production' ? '/gamor-app' : '';
 function App() {
   return (
-    <BrowserRouter basename="/gamor-app">
+    <BrowserRouter basename={basename}>
       <Routes>
         <Route path="/" element={<Layout />}>
           <Route index element={<Home />} />
