@@ -2,63 +2,26 @@ import { useState, useMemo } from 'react';
 import { Link } from 'react-router-dom';
 import { useAuth } from '../hooks/useAuth';
 import './Home.css';
-import { partyData, matchesData, streamsData, defaultFeatured, availableGames} from '../data/games';
+import { partyData, matchesData, streamsData, defaultFeatured} from '../data/games';
+import { availableGames, gameImages } from '../data/gamesConfig';
 import { categories } from '../data/categories';
+import { getParticipants } from '../utils/getParticipants';
+import { getDataByFilter, getInputPlaceholder } from '../utils/filterHelpers';
+import { addToPanel } from '../utils/addToPanel';
 import avatarLog from '../assets/avatars/AvatarLog.jpg'; 
-
-// Game images for the featured panel
-import codWarzone from '../assets/games/COD-Warzone.jpg';
-import fortnite from '../assets/games/Fortnite.jpg';
-import gtaV from '../assets/games/GTA-V.jpg';
-import leagueOfLegends from '../assets/games/League-of-Legends.jpg';
-import valorant from '../assets/games/Valorant.jpg';
 
 export const Home = () => {
   const userAvatar = avatarLog;
   const { isLoggedIn, user: loggedUser, logout } = useAuth();
-
   const [filterType, setFilterType] = useState('party');
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedItem, setSelectedItem] = useState(defaultFeatured);
 
   const getGameImage = (game) => {
-    const images = {
-      'COD Warzone': codWarzone,
-      'Fortnite': fortnite,
-      'GTA V': gtaV,
-      'League of Legends': leagueOfLegends,
-      'Valorant': valorant,
-    };
-    return images[game] || fortnite;
+    return gameImages[game] || gameImages['Fortnite'];
   };
 
-  const getDataByFilter = () => {
-    switch (filterType) {
-      case 'party':
-        return partyData;
-      case 'matches':
-        return matchesData;
-      case 'streams':
-        return streamsData;
-      default:
-        return partyData;
-    }
-  };
-
-  const getInputPlaceholder = () => {
-    switch (filterType) {
-      case 'party':
-        return 'Search for a game to find parties...';
-      case 'matches':
-        return 'Search for a game to find matches...';
-      case 'streams':
-        return 'Search for a game to find streams...';
-      default:
-        return 'Search for a game...';
-    }
-  };
-
-  const filteredData = getDataByFilter().filter((item) =>
+  const filteredData = getDataByFilter(filterType, partyData, matchesData, streamsData).filter((item) =>
     item.game.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
@@ -74,64 +37,15 @@ export const Home = () => {
     setSelectedItem(item);
   };
   const handleClearFilter = () => {
-  setSearchTerm('');    
-  setFilterType('party'); 
-  setSelectedItem(defaultFeatured);
+    setSearchTerm('');    
+    setFilterType('party'); 
+    setSelectedItem(defaultFeatured);
 };
 
   const handleAddToPanel = (item) => {
     if (!isLoggedIn) return;
-
-    let updatedItem = { ...item };
-
-    if (item.members) {
-      const alreadyMember = item.members.some(
-        (member) => member.name === loggedUser
-      );
-      if (!alreadyMember) {
-        updatedItem.members = [
-          ...item.members,
-          { name: loggedUser, avatar: userAvatar },
-        ];
-      }
-    }
-
-    if (!item.members && (item.players || item.viewers)) {
-      if (!updatedItem.participants) {
-        updatedItem.participants = [];
-      }
-      const alreadyParticipant = updatedItem.participants.some(
-        (p) => p.name === loggedUser
-      );
-      if (!alreadyParticipant) {
-        updatedItem.participants.push({ name: loggedUser, avatar: userAvatar});
-      }
-    }
-
+    const updatedItem = addToPanel(item, loggedUser, userAvatar);
     setSelectedItem(updatedItem);
-  };
-
-  const getParticipants = (item) => {
-    if (item.members && item.members.length > 0) {
-      return { type: 'members', data: item.members };
-    }
-
-    if (item.participants && item.participants.length > 0) {
-      return {
-        type: 'membersWithCounter',
-        data: item.participants,
-        counter: item.players ? `${item.players} players` : `${item.viewers} watching`,
-      };
-    }
-
-    if (item.players) {
-      return { type: 'players', data: `${item.players} players` };
-    }
-    if (item.viewers) {
-      return { type: 'viewers', data: `${item.viewers} watching` };
-    }
-
-    return { type: 'none', data: null };
   };
 
   return (
