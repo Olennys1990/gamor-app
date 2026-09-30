@@ -4,7 +4,7 @@ import { useAuth } from '../hooks/useAuth';
 import './Login.css';
 
 export const Login = () => {
-  const [user, setUser] = useState('');
+  const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const navigate = useNavigate();
@@ -12,16 +12,20 @@ export const Login = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (!user || !password) {
+    if (!username || !password) {
       setError('Please fill in all fields');
       return;
     }
-    login(user);
-    navigate('/');
+    const success = login(username, password);
+    if (success) {
+      navigate('/');
+    } else {
+      setError('Invalid username or password. Try: admin / 123456');
+    }
   };
 
-  const handleUserChange = (e) => {
-    setUser(e.target.value);
+  const handleUsernameChange = (e) => {
+    setUsername(e.target.value);
     if (error) setError('');
   };
 
@@ -36,12 +40,12 @@ export const Login = () => {
         <h2 className="login-title">Sign In</h2>
         <form onSubmit={handleSubmit} className="login-form">
           <div className="form-group">
-            <label htmlFor="user">User</label>
+            <label htmlFor="username">Username</label>
             <input
               type="text"
-              id="user"
-              value={user}
-              onChange={handleUserChange}
+              id="username"
+              value={username}
+              onChange={handleUsernameChange}
               placeholder="Enter your username"
               className="login-input"
             />
